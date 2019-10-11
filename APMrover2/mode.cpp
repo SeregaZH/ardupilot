@@ -244,7 +244,7 @@ void Mode::set_desired_heading_and_speed(float yaw_angle_cd, float target_speed)
 
     // record targets
     _desired_yaw_cd = yaw_angle_cd;
-    _desired_speed = target_speed;
+    set_desired_speed(target_speed);
 }
 
 // get default speed for this mode (held in (CRUISE_SPEED, WP_SPEED or RTL_SPEED)
@@ -262,14 +262,14 @@ float Mode::get_speed_default(bool rtl) const
 // restore desired speed to default from parameter values (CRUISE_SPEED or WP_SPEED)
 void Mode::set_desired_speed_to_default(bool rtl)
 {
-    _desired_speed = get_speed_default(rtl);
+    g2.wp_nav.set_desired_speed_to_default();
 }
 
 // set desired speed in m/s
 bool Mode::set_desired_speed(float speed)
 {
     if (!is_negative(speed)) {
-        _desired_speed = speed;
+        g2.wp_nav.set_desired_speed(speed);
         return true;
     }
     return false;
