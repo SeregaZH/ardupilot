@@ -130,8 +130,4 @@ grep -Fxq "$exportline2" ~/.profile 2>/dev/null || {
 
 apt-cache search arm-none-eabi
 
-(
- cd $ARDUPILOT_ROOT
- git submodule update --init --recursive
-)
 echo "---------- $0 end ----------"
