@@ -20,8 +20,6 @@ RUN chown -R ardupilot:ardupilot /ardupilot && \
 USER ardupilot
 ENV CCACHE_MAXSIZE=1G
 ENV PATH /usr/lib/ccache:/ardupilot/Tools:${PATH}
-<<<<<<< HEAD
-=======
 ENV PATH /ardupilot/Tools/autotest:${PATH}
 ENV PATH /ardupilot/.local/bin:$PATH
 
@@ -31,4 +29,3 @@ FROM ardupilot-base as ardupilot
 RUN pip2 install --upgrade future lxml pymavlink MAVProxy pexpect
 
 CMD ["/bin/bash","entrypoint.sh"]
->>>>>>> 784a62a022... Fix dockerfile and add location
