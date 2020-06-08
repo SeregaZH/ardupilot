@@ -3,4 +3,5 @@
 # This breaks Vagrant for some users.
 *.sh text eol=lf
 
+*.py text eol=lf
 
