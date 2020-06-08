@@ -648,7 +648,7 @@ def start_mavproxy(opts, stuff):
                 # mavlink out to the containing host OS
                 cmd.extend(["--out", "10.0.2.2:" + str(port)])
             else:
-                cmd.extend(["--out", "127.0.0.1:" + str(port)])
+                cmd.extend(["--out", cmd_opts.fcu_host + ":" + str(port)])
 
     if opts.tracker:
         cmd.extend(["--load-module", "tracker"])
@@ -949,6 +949,10 @@ group_sim.add_option("-Z", "--swarm",
 group_sim.add_option("--flash-storage",
                      action='store_true',
                      help="enable use of flash storage emulation")
+group_sim.add_option("--fcu-host",
+                     type='string',
+                     default="127.0.0.1",
+                     help="fcu host to publish out messages from mavproxy")        
 parser.add_option_group(group_sim)
 
 
