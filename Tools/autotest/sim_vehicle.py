@@ -516,7 +516,7 @@ def start_antenna_tracker(opts):
     tracker_instance = 1
     oldpwd = os.getcwd()
     os.chdir(vehicledir)
-    tracker_uarta = "tcp:127.0.0.1:" + str(5760 + 10 * tracker_instance)
+    tracker_uarta = "tcp:" + opts.uart_host + ":" + str(5760 + 10 * tracker_instance)
     exe = os.path.join(vehicledir, "AntennaTracker.elf")
     run_in_terminal_window("AntennaTracker",
                            ["nice",
@@ -952,7 +952,19 @@ group_sim.add_option("--flash-storage",
 group_sim.add_option("--fcu-host",
                      type='string',
                      default="127.0.0.1",
-                     help="fcu host to publish out messages from mavproxy")        
+                     help="fcu host to publish out messages from mavproxy")
+group_sim.add_option("--uart_host",
+                     type='string',
+                     default="127.0.0.1",
+                     help="uart host for antenna tracker connection")
+group_sim.add_option("--mav_host",
+                     type='string',
+                     default="127.0.0.1",
+                     help="mavlink host")
+group_sim.add_option("--sim_host",
+                     type='string',
+                     default="127.0.0.1",
+                     help="simulation host")                              
 parser.add_option_group(group_sim)
 
 
@@ -1064,8 +1076,8 @@ if cmd_opts.frame is None:
     cmd_opts.frame = vinfo.options[cmd_opts.vehicle]["default_frame"]
 
 # setup ports for this instance
-mavlink_port = "tcp:127.0.0.1:" + str(5760 + 10 * cmd_opts.instance)
-simout_port = "127.0.0.1:" + str(5501 + 10 * cmd_opts.instance)
+mavlink_port = "tcp:" + cmd_opts.mav_host +":" + str(5760 + 10 * cmd_opts.instance)
+simout_port = cmd_opts.sim_host + ":" + str(5501 + 10 * cmd_opts.instance)
 
 frame_infos = vinfo.options_for_frame(cmd_opts.frame,
                                       cmd_opts.vehicle,
